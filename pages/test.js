@@ -12,7 +12,6 @@ const Test = () => {
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async () => {
     if (counter <= 0) {
       try {
@@ -66,8 +65,14 @@ const Test = () => {
       ) : (
         question && (
           <>
-            <h1>{question?.data?.attributes?.Title}</h1>
-            <input
+            <h1>{question.data.attributes.Title}</h1>
+            <QuestionType
+              typeOfQuestion={
+                question.data.attributes.QuestionType.typeOfQuestion
+              }
+            />
+
+            {/* <input
               type="text"
               onChange={(e) =>
                 setAnswer({
@@ -75,7 +80,7 @@ const Test = () => {
                   question: question.data.id,
                 })
               }
-            />
+            /> */}
           </>
         )
       )}
@@ -85,5 +90,5 @@ const Test = () => {
   );
 };
 export default Test;
-
+//http://localhost:1337/api/questions?populate[QuestionType][populate]=isMultiple
 // http://localhost:1337/api/interns?populate[answers][populate]=question
