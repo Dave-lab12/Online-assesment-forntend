@@ -12,6 +12,7 @@ const Test = () => {
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async () => {
     if (counter <= 0) {
       try {
@@ -92,3 +93,11 @@ const Test = () => {
 export default Test;
 //http://localhost:1337/api/questions?populate[QuestionType][populate]=isMultiple
 // http://localhost:1337/api/interns?populate[answers][populate]=question
+
+// send username
+
+//get approval
+
+//get question
+
+// send answer with question and user id
