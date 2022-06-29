@@ -1,10 +1,19 @@
+import { useState } from 'react'
 import '../styles/globals.css'
-import { createContext } from 'react'
-const Context = createContext({})
+import { UserDataContext } from '../context/userContext'
 function MyApp({ Component, pageProps }) {
-  return <Context.Provider value={Context}>
+
+
+  const [userData, setUserData] = useState({});
+  const [questionsLength, setQuestionsLength] = useState(0);
+
+
+  return <UserDataContext.Provider value={{
+    userData, setUserData, questionsLength,
+    setQuestionsLength
+  }}>
     <Component {...pageProps} />
-  </Context.Provider>
+  </UserDataContext.Provider>
 }
 
 export default MyApp
