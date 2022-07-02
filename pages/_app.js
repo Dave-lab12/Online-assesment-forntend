@@ -5,12 +5,12 @@ function MyApp({ Component, pageProps }) {
 
 
   const [userData, setUserData] = useState({});
-  const [questionsLength, setQuestionsLength] = useState(0);
+  const [questions, setQuestions] = useState({});
 
 
   return <UserDataContext.Provider value={{
-    userData, setUserData, questionsLength,
-    setQuestionsLength
+    userData, setUserData, questions,
+    setQuestions
   }}>
     <Component {...pageProps} />
   </UserDataContext.Provider>

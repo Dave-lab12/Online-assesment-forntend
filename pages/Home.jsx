@@ -1,16 +1,31 @@
 import React, { useContext } from "react";
 import { UserDataContext } from "../context/userContext";
-import Link from "next/link";
+import axios from "axios";
 
+import Router from "next/router";
+import question from "./question";
+import { BASE_URL } from "../Api";
 const Home = () => {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const { userData, setUserData, setQuestions } = useContext(UserDataContext);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log(userData);
+  const handleSubmit = async () => {
+    try {
+      const sendUser = await axios.post(BASE_URL + "/interns", {
+        data: userData,
+      });
+      setUserData({ ...userData, id: sendUser.data.data.id });
+      const { data } = await axios.get(
+        `${BASE_URL}/questions?populate[QuestionType][populate]=isMultiple`
+      );
+      setQuestions(data.data);
+      await Router.push("/question");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -21,11 +36,7 @@ const Home = () => {
       <input type="text" onChange={(e) => handleChange(e)} name="Name" />
       <label>Candidates Email</label>
       <input type="text" onChange={(e) => handleChange(e)} name="Email" />
-      <button onClick={handleSubmit}>
-        <Link href="/question">
-          <a> Start the assesment</a>
-        </Link>{" "}
-      </button>
+      <button onClick={handleSubmit}>Start the assesment</button>
     </div>
   );
 };
