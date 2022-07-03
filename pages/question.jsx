@@ -15,6 +15,7 @@ const question = () => {
     return <Completed />;
   }
   let singleQuestion = questions[questionsCounter].attributes;
+  let singleQuestionId = questions[questionsCounter].id;
   console.log(singleQuestion);
 
   if (singleQuestion.QuestionType[0].typeOfQuestion === "isShortAnswer") {
@@ -26,6 +27,7 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           userId={userData.id}
           questionsCounter={questionsCounter}
+          questionId={singleQuestionId}
         />
       </div>
     );
@@ -40,6 +42,7 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           userId={userData.id}
           questionsCounter={questionsCounter}
+          questionId={singleQuestionId}
         />
       </div>
     );
@@ -53,6 +56,7 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           userId={userData.id}
           questionsCounter={questionsCounter}
+          questionId={singleQuestionId}
         />
       </div>
     );

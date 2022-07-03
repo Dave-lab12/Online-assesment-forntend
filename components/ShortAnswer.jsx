@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Api";
 
-const ShortAnswer = ({ userId, setQuestionsCounter, questionsCounter }) => {
-  const [answer, setAnswer] = useState({});
+const ShortAnswer = ({
+  userId,
+  setQuestionsCounter,
 
+  questionId,
+}) => {
+  const [answer, setAnswer] = useState({});
+  console.log(questionId);
   const handleSubmit = async () => {
     const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
-      data: { ...answer, intern: userId },
+      data: { Answer: answer, intern: userId, question: questionId },
     });
 
     if (sendAnswer.status === 200) {

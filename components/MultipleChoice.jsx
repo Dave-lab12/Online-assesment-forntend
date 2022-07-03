@@ -6,36 +6,38 @@ const MultipleChoice = ({
   userId,
   setQuestionsCounter,
   answerList,
-  questionsCounter,
+  questionId,
 }) => {
   const [answer, setAnswer] = useState({});
 
   const handleSubmit = async () => {
     const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
-      data: { ...answer, intern: userId },
+      data: { Answer: answer, intern: userId, question: questionId },
     });
 
     if (sendAnswer.status === 200) {
       setQuestionsCounter((questionsCounter) => questionsCounter + 1);
     }
   };
-  console.log(answerList);
+  const handleChange = (e) => {
+    setAnswer(e.target.value);
+  };
   return (
     <>
       {Object.keys(answerList[0]).map((el) => {
-        console.log(el);
-        return (
-          <>
-            <input
-              type="radio"
-              name="true"
-              id="key"
-              value={el}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="">{answerList[el]}</label>
-          </>
-        );
+        if (el != "id")
+          return (
+            <>
+              <input
+                type="radio"
+                name="true"
+                id="key"
+                value={el}
+                onChange={(e) => handleChange(e)}
+              />
+              <label htmlFor="">{answerList[0][el]}</label>
+            </>
+          );
       })}
       <button onClick={handleSubmit}>Next</button>
     </>
