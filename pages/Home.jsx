@@ -24,7 +24,7 @@ const Home = () => {
       );
       setQuestions(data.data);
       setLoading(false);
-      // await Router.push("/question");
+      await Router.push("/question");
     } catch (error) {
       console.log(error);
       setError(true);

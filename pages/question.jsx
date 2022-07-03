@@ -5,20 +5,20 @@ import Completed from "./completed";
 import ShortAnswer from "../components/ShortAnswer";
 import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
-import Router from "next/router";
-
+import { useRouter } from "next/router";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
+  const singleQuestion = questions[questionsCounter]?.attributes;
+  const singleQuestionId = questions[questionsCounter]?.id;
+  const router = useRouter();
+  // const redirectHome = () => ;
 
   if (questions.length <= questionsCounter) {
     return <Completed />;
   }
-  let singleQuestion = questions[questionsCounter].attributes;
-  let singleQuestionId = questions[questionsCounter].id;
-  console.log(singleQuestion);
 
-  if (singleQuestion.QuestionType[0].typeOfQuestion === "isShortAnswer") {
+  if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isShortAnswer") {
     return (
       <div>
         <span>{singleQuestion.timeToFinish}</span>
@@ -32,7 +32,7 @@ const question = () => {
       </div>
     );
   }
-  if (singleQuestion.QuestionType[0].typeOfQuestion === "isMultipleChoice") {
+  if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isMultipleChoice") {
     return (
       <div>
         <span>{singleQuestion.timeToFinish}</span>
@@ -47,7 +47,7 @@ const question = () => {
       </div>
     );
   }
-  if (singleQuestion.QuestionType[0].typeOfQuestion === "isTrueFalse") {
+  if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isTrueFalse") {
     return (
       <div>
         <span>{singleQuestion.timeToFinish}</span>
@@ -59,6 +59,14 @@ const question = () => {
           questionId={singleQuestionId}
         />
       </div>
+    );
+  }
+  if (Object.keys(userData).length >= 0 || Object.keys(questions).length >= 0) {
+    return (
+      <>
+        <h1>looks like you are lost</h1>
+        <button onClick={() => router.push("/Home")}>Go to home page</button>
+      </>
     );
   }
 };
