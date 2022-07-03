@@ -65,7 +65,7 @@ const question = () => {
     return (
       <>
         <h1>looks like you are lost</h1>
-        <button onClick={() => router.push("/Home")}>Go to home page</button>
+        <button onClick={() => router.push("/")}>Go to home page</button>
       </>
     );
   }

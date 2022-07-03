@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { UserDataContext } from "../context/userContext";
 import axios from "axios";
-
+import { UserOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import Router from "next/router";
 import { BASE_URL } from "../Api";
+import { Typography } from "antd";
 const Home = () => {
   const { userData, setUserData, setQuestions } = useContext(UserDataContext);
   const [error, setError] = useState(false);
@@ -31,9 +33,15 @@ const Home = () => {
       setLoading(false);
     }
   };
+
+  const { Title } = Typography;
   return (
     <div>
-      <h1>Hello and welcome to icog online assesmet program</h1>
+      <div>
+        <Title>iCog Labs</Title>
+      </div>
+      <Title>Internship Online Assesment</Title>
+
       <p>please type in your name and email </p>
       {error && (
         <p style={{ color: "red" }}>
@@ -42,9 +50,22 @@ const Home = () => {
         </p>
       )}
       <label>Candidates Name</label>
-      <input type="text" onChange={(e) => handleChange(e)} name="Name" />
+      {/* <input type="text" onChange={(e) => handleChange(e)} name="Name" /> */}
+      <Input
+        placeholder="default size"
+        prefix={<UserOutlined />}
+        onChange={(e) => handleChange(e)}
+        name="Name"
+      />
       <label>Candidates Email</label>
-      <input type="text" onChange={(e) => handleChange(e)} name="Email" />
+      <Input
+        placeholder="default size"
+        prefix={<UserOutlined />}
+        onChange={(e) => handleChange(e)}
+        name="Email"
+        status="error"
+      />
+
       <button onClick={handleSubmit}>
         Start the assesment {loading && "loading "}
       </button>
