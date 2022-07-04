@@ -1,0 +1,24 @@
+.questionsContainer{
+    max-width: 800px;
+    margin: auto;
+}
+.questionsContainer h1{
+    text-align: center;
+}
+.counter{
+  text-align: end !important;
+}
+.shortAnsContainer button,.choiceContainer button{
+display: flex;
+justify-content: flex-end;
+align-items: flex-end;
+margin: 20px auto;
+}
+.ant-radio-group{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+.ant-radio-group >*{
+    margin-bottom: 10px;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Api";
+import { Radio, Button, notification } from "antd";
 const TrueFalse = ({ userId, setQuestionsCounter, questionId }) => {
   const [answer, setAnswer] = useState({});
 
@@ -18,23 +19,23 @@ const TrueFalse = ({ userId, setQuestionsCounter, questionId }) => {
   };
   return (
     <div>
-      <input
-        type="radio"
-        value={"false"}
-        name="true"
-        id=""
-        onChange={(e) => handleChange(e)}
-      />
-      <label htmlFor="">true</label>
-      <input
-        type="radio"
-        name="false"
-        value={"true"}
-        id=""
-        onChange={(e) => handleChange(e)}
-      />
-      <label htmlFor="">false</label>
-      <button onClick={handleSubmit}>Next</button>
+      <Radio.Group name="choice">
+        <Radio value="false" onChange={(e) => handleChange(e)}>
+          False
+        </Radio>
+        <Radio value="true" onChange={(e) => handleChange(e)}>
+          true
+        </Radio>
+      </Radio.Group>
+
+      <Button
+        type="primary"
+        loading={loading}
+        size={"large"}
+        onClick={handleSubmit}
+      >
+        Next Question
+      </Button>
     </div>
   );
 };

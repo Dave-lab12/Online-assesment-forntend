@@ -7,7 +7,6 @@ import Router from "next/router";
 import styles from "../styles/Home.module.css";
 import { BASE_URL } from "../Api";
 import { Divider, List, Typography, Button, notification } from "antd";
-import TimeCountDown from "../components/timeCountDown";
 const data = [
   "Make sure you have stable internet connection.",
   "you can not retake the examination again.",
@@ -22,7 +21,7 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    setUserData({ ...userData, [e.target.name]: e.target.value.trim() });
   };
   const openNotification = (placement, type, content) => {
     notification[type]({
@@ -53,6 +52,8 @@ const Home = () => {
       setLoading(false);
     }
   };
+  //todo
+  // validate email and make sure it is from trusted shource
 
   const { Title } = Typography;
   useEffect(() => {
@@ -65,7 +66,7 @@ const Home = () => {
   }, [error]);
   return (
     <div className={styles.homePageContainer}>
-      <TimeCountDown />
+      {/* <TimeCountDown /> */}
       <div className={styles.homeTitle}>
         <Title>iCog Labs</Title>
         <Image
@@ -76,7 +77,7 @@ const Home = () => {
         />
       </div>
 
-      <Title className={styles.subTitle}>Internship Assesment</Title>
+      <Title>Internship Assesment</Title>
       <div className={styles.descriptionContainer}>
         <Divider orientation="left">Berfore We begin</Divider>
         <List
@@ -112,19 +113,17 @@ const Home = () => {
           size="large"
         />
         <Divider orientation="left"></Divider>
-      </div>
 
-      <Button
-        type="primary"
-        loading={loading}
-        size={"large"}
-        onClick={handleSubmit}
-      >
-        Start
-      </Button>
-      {/* <button onClick={handleSubmit}>
-        Start the assesment {loading && "loading "}
-      </button> */}
+        <Button
+          type="primary"
+          loading={loading}
+          size={"large"}
+          onClick={handleSubmit}
+        >
+          Start
+        </Button>
+      </div>
+      {/* <CodeEditor /> */}
     </div>
   );
 };

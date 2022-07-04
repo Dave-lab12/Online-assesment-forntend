@@ -5,6 +5,10 @@
   /* text-align: center; */
   text-transform: capitalize;
 }
+.homePageContainer button{
+float: right;
+  
+}
 .homeTitle{
   display: flex;
   align-items: center;

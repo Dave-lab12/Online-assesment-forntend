@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { UserDataContext } from "../context/userContext";
-import { useContext } from "react";
 import Completed from "./completed";
 import ShortAnswer from "../components/ShortAnswer";
 import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
 import { useRouter } from "next/router";
 import TimeCountDown from "../components/timeCountDown";
+import styles from "../styles/questions.module.css";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
@@ -20,9 +20,11 @@ const question = () => {
 
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isShortAnswer") {
     return (
-      <div>
-        {/* <span>{singleQuestion.timeToFinish}</span> */}
-        <TimeCountDown date={singleQuestion.timeToFinish} />
+      <div className={styles.questionsContainer}>
+        <TimeCountDown
+          date={singleQuestion.timeToFinish}
+          setQuestionsCounter={setQuestionsCounter}
+        />
         <h1>{singleQuestion.Title}</h1>
         <ShortAnswer
           setQuestionsCounter={setQuestionsCounter}
@@ -35,8 +37,11 @@ const question = () => {
   }
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isMultipleChoice") {
     return (
-      <div>
-        <TimeCountDown date={singleQuestion.timeToFinish} />
+      <div className={styles.questionsContainer}>
+        <TimeCountDown
+          date={singleQuestion.timeToFinish}
+          setQuestionsCounter={setQuestionsCounter}
+        />
         <h1>{singleQuestion.Title}</h1>
         <MultipleChoice
           answerList={singleQuestion.QuestionType[0].isMultiple}
@@ -50,8 +55,11 @@ const question = () => {
   }
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isTrueFalse") {
     return (
-      <div>
-        <TimeCountDown date={singleQuestion.timeToFinish} />
+      <div className={styles.questionsContainer}>
+        <TimeCountDown
+          date={singleQuestion.timeToFinish}
+          setQuestionsCounter={setQuestionsCounter}
+        />
         <h1>{singleQuestion.Title}</h1>
         <TrueFalse
           setQuestionsCounter={setQuestionsCounter}
@@ -66,7 +74,7 @@ const question = () => {
     return (
       <>
         <h1>looks like you are lost</h1>
-        <button onClick={() => router.push("/")}>Go to home page</button>
+        <button onClick={() => router.replace("/")}>Go to home page</button>
       </>
     );
   }
