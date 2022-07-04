@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../context/userContext";
 import axios from "axios";
 import { UserOutlined } from "@ant-design/icons";
@@ -7,6 +7,7 @@ import Router from "next/router";
 import styles from "../styles/Home.module.css";
 import { BASE_URL } from "../Api";
 import { Divider, List, Typography, Button, notification } from "antd";
+import TimeCountDown from "../components/timeCountDown";
 const data = [
   "Make sure you have stable internet connection.",
   "you can not retake the examination again.",
@@ -54,9 +55,17 @@ const Home = () => {
   };
 
   const { Title } = Typography;
-
+  useEffect(() => {
+    error &&
+      openNotification(
+        "top",
+        "error",
+        "Something went Wrong make sure your email is not registered before and you have a proper internet connection."
+      );
+  }, [error]);
   return (
     <div className={styles.homePageContainer}>
+      <TimeCountDown />
       <div className={styles.homeTitle}>
         <Title>iCog Labs</Title>
         <Image
@@ -84,12 +93,7 @@ const Home = () => {
       <Title level={6}></Title>
 
       <Title level={5}> Please type in your name and email</Title>
-      {error &&
-        openNotification(
-          "top",
-          "error",
-          "Something went Wrong make sure your email is not registered before and you have a proper internet connection."
-        )}
+
       <div className={styles.inputContainer}>
         <Divider orientation="left">Name</Divider>
         <Input

@@ -6,13 +6,13 @@ import ShortAnswer from "../components/ShortAnswer";
 import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
 import { useRouter } from "next/router";
+import TimeCountDown from "../components/timeCountDown";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
   const singleQuestion = questions[questionsCounter]?.attributes;
   const singleQuestionId = questions[questionsCounter]?.id;
   const router = useRouter();
-  // const redirectHome = () => ;
 
   if (questions.length <= questionsCounter) {
     return <Completed />;
@@ -21,7 +21,8 @@ const question = () => {
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isShortAnswer") {
     return (
       <div>
-        <span>{singleQuestion.timeToFinish}</span>
+        {/* <span>{singleQuestion.timeToFinish}</span> */}
+        <TimeCountDown date={singleQuestion.timeToFinish} />
         <h1>{singleQuestion.Title}</h1>
         <ShortAnswer
           setQuestionsCounter={setQuestionsCounter}
@@ -35,7 +36,7 @@ const question = () => {
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isMultipleChoice") {
     return (
       <div>
-        <span>{singleQuestion.timeToFinish}</span>
+        <TimeCountDown date={singleQuestion.timeToFinish} />
         <h1>{singleQuestion.Title}</h1>
         <MultipleChoice
           answerList={singleQuestion.QuestionType[0].isMultiple}
@@ -50,7 +51,7 @@ const question = () => {
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isTrueFalse") {
     return (
       <div>
-        <span>{singleQuestion.timeToFinish}</span>
+        <TimeCountDown date={singleQuestion.timeToFinish} />
         <h1>{singleQuestion.Title}</h1>
         <TrueFalse
           setQuestionsCounter={setQuestionsCounter}
