@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserDataContext } from "../context/userContext";
-import Completed from "./completed";
+import Router from "next/router";
+import Link from "next/link";
 import ShortAnswer from "../components/ShortAnswer";
 import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
-import { useRouter } from "next/router";
 import TimeCountDown from "../components/timeCountDown";
 import styles from "../styles/questions.module.css";
 const question = () => {
@@ -12,10 +12,10 @@ const question = () => {
   const { userData, questions } = useContext(UserDataContext);
   const singleQuestion = questions[questionsCounter]?.attributes;
   const singleQuestionId = questions[questionsCounter]?.id;
-  const router = useRouter();
 
   if (questions.length <= questionsCounter) {
-    return <Completed />;
+    Router.reload();
+    return Router.push("/complited");
   }
 
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isShortAnswer") {
@@ -24,6 +24,7 @@ const question = () => {
         <TimeCountDown
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
+          questionsCounter={questionsCounter}
         />
         <h1>{singleQuestion.Title}</h1>
         <ShortAnswer
@@ -41,6 +42,7 @@ const question = () => {
         <TimeCountDown
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
+          questionsCounter={questionsCounter}
         />
         <h1>{singleQuestion.Title}</h1>
         <MultipleChoice
@@ -59,6 +61,7 @@ const question = () => {
         <TimeCountDown
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
+          questionsCounter={questionsCounter}
         />
         <h1>{singleQuestion.Title}</h1>
         <TrueFalse
@@ -74,7 +77,10 @@ const question = () => {
     return (
       <>
         <h1>looks like you are lost</h1>
-        <button onClick={() => router.replace("/")}>Go to home page</button>
+        <Link href="/">
+          <a>Go to home page</a>
+        </Link>
+        {/* <button onClick={() => router.replace("/")}>Go to home page</button> */}
       </>
     );
   }

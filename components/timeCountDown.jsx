@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/questions.module.css";
 const TimeCountDown = (props) => {
-  const { date, setQuestionsCounter } = props;
+  const { date, setQuestionsCounter, questionsCounter } = props;
   const getTimeFromString = (str) => {
     const splitText = str.split(":");
     const seconds = Number(splitText[0]);

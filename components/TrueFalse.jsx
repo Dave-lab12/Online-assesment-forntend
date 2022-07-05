@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Api";
 import { Radio, Button, notification } from "antd";
@@ -9,11 +9,16 @@ const TrueFalse = ({ userId, setQuestionsCounter, questionId }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const handleSubmit = async () => {
-    const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
-      data: { Answer: answer, intern: userId, question: questionId },
-    });
-    if (sendAnswer.status === 200) {
-      setQuestionsCounter((questionsCounter) => questionsCounter + 1);
+    setLoading(true);
+    try {
+      const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
+        data: { Answer: answer, intern: userId, question: questionId },
+      });
+
+      if (sendAnswer.status === 200) {
+        setQuestionsCounter((questionsCounter) => questionsCounter + 1);
+      }
+    } catch (error) {
       console.log(error);
       setError(true);
       setLoading(false);
@@ -29,13 +34,15 @@ const TrueFalse = ({ userId, setQuestionsCounter, questionId }) => {
   const handleChange = (e) => {
     setAnswer(e.target.value);
   };
-  if (error) {
-    openNotification(
-      "top",
-      "error",
-      "Something Went Wrong Please contact support"
-    );
-  }
+  useEffect(() => {
+    if (error) {
+      openNotification(
+        "top",
+        "error",
+        "Something Went Wrong Please contact support"
+      );
+    }
+  }, [error]);
   return (
     <div className={styles.trueFalseCntainer}>
       <Radio.Group

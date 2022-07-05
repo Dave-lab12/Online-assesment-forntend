@@ -1,4 +1,5 @@
 import axios from "axios";
+import QuestionType from '../components/QuestionTypeCheck'
 import { useState, useEffect } from "react";
 const Test = () => {
   const [userData, setUserData] = useState({});
@@ -7,6 +8,7 @@ const Test = () => {
   const [question, setQuestion] = useState({});
   const [answer, setAnswer] = useState({});
   const [questionQuantity, setQuestionsQuantity] = useState(0);
+
   const BASE_URL = "http://localhost:1337/api";
 
   const handleChange = (e) => {
@@ -69,7 +71,7 @@ const Test = () => {
             <h1>{question.data.attributes.Title}</h1>
             <QuestionType
               typeOfQuestion={
-                question.data.attributes.QuestionType.typeOfQuestion
+                question.data.attributes.QuestionType[0]?.typeOfQuestion
               }
             />
 

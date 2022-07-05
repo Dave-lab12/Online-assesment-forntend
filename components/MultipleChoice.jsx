@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Api";
 import styles from "../styles/questions.module.css";
@@ -23,7 +23,7 @@ const MultipleChoice = ({
     setLoading(true);
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
-        data: { Answer: answer, intern: userId, question: questionId },
+        data: { Answer: answer, question: questionId, intern: userId },
       });
 
       if (sendAnswer.status === 200) {
@@ -35,13 +35,15 @@ const MultipleChoice = ({
       setLoading(false);
     }
   };
-  if (error) {
-    openNotification(
-      "top",
-      "error",
-      "Something Went Wrong Please contact support"
-    );
-  }
+  useEffect(() => {
+    if (error) {
+      openNotification(
+        "top",
+        "error",
+        "Something Went Wrong Please contact support"
+      );
+    }
+  }, [error]);
   const handleChange = (e) => {
     setAnswer(e.target.value);
   };

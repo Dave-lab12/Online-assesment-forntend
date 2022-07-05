@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../Api";
 import { Input, Button, notification } from "antd";
@@ -19,7 +19,7 @@ const ShortAnswer = ({ userId, setQuestionsCounter, questionId }) => {
     setLoading(true);
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
-        data: { Answer: answer, intern: userId, question: questionId },
+        data: { Answer: answer, question: questionId, intern: userId },
       });
       if (sendAnswer.status === 200) {
         setQuestionsCounter((questionsCounter) => questionsCounter + 1);
@@ -32,13 +32,15 @@ const ShortAnswer = ({ userId, setQuestionsCounter, questionId }) => {
       setLoading(false);
     }
   };
-  if (error) {
-    openNotification(
-      "top",
-      "error",
-      "Something Went Wrong Please contact support"
-    );
-  }
+  useEffect(() => {
+    if (error) {
+      openNotification(
+        "top",
+        "error",
+        "Something Went Wrong Please contact support"
+      );
+    }
+  }, [error]);
   const handleChange = (e) => {
     setAnswer(e.target.value);
   };
