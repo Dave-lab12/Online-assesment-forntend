@@ -22,3 +22,10 @@ margin: 20px auto;
 .ant-radio-group >*{
     margin-bottom: 10px;
 }
+.trueFalseCntainer{
+  
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+    
+}
