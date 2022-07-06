@@ -28,6 +28,7 @@ const MultipleChoice = ({
 
       if (sendAnswer.status === 200) {
         setQuestionsCounter((questionsCounter) => questionsCounter + 1);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -80,13 +81,3 @@ const MultipleChoice = ({
 };
 
 export default MultipleChoice;
-{
-  /* <input
-                type="radio"
-                name="true"
-                id="key"
-                value={el}
-                onChange={(e) => handleChange(e)}
-              />
-              <label htmlFor="">{answerList[0][el]}</label> */
-}

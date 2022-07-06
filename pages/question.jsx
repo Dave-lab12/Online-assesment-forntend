@@ -14,6 +14,7 @@ const question = () => {
   const singleQuestionId = questions[questionsCounter]?.id;
 
   if (questions.length <= questionsCounter) {
+    console.log("com");
     Router.reload();
     return Router.push("/complited");
   }

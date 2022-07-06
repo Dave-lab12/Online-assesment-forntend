@@ -83,11 +83,7 @@ const Home = () => {
         <List
           bordered
           dataSource={data}
-          renderItem={(item) => (
-            <List.Item>
-              <Typography.Text></Typography.Text> {item}
-            </List.Item>
-          )}
+          renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       </div>
       <p> </p>
