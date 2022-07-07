@@ -7,6 +7,7 @@ import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
 import TimeCountDown from "../components/timeCountDown";
 import styles from "../styles/questions.module.css";
+import Completed from "./complited";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
@@ -14,9 +15,7 @@ const question = () => {
   const singleQuestionId = questions[questionsCounter]?.id;
 
   if (questions.length <= questionsCounter) {
-    console.log("com");
-    Router.reload();
-    return Router.push("/complited");
+    return <Completed />;
   }
 
   if (singleQuestion?.QuestionType[0]?.typeOfQuestion === "isShortAnswer") {

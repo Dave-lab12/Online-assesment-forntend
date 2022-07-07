@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../context/userContext";
 import axios from "axios";
-import { UserOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import InputForm from "../components/InputForm";
+import * as EmailValidator from "email-validator";
 import Router from "next/router";
 import styles from "../styles/Home.module.css";
 import { BASE_URL } from "../Api";
-import { Divider, List, Typography, Button, notification } from "antd";
+import { Divider, List, Typography, Button, notification, Modal } from "antd";
 const data = [
   "Make sure you have stable internet connection.",
   "you can not retake the examination again.",
@@ -20,6 +20,8 @@ const Home = () => {
   const { userData, setUserData, setQuestions } = useContext(UserDataContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value.trim() });
   };
@@ -34,6 +36,10 @@ const Home = () => {
     if (!userData.Name || !userData.Email) {
       return openNotification("top", "error", "please fill all forms ");
     }
+    if (!EmailValidator.validate(userData.Email)) {
+      openNotification("top", "error", "invalid email");
+    }
+
     setLoading(true);
     try {
       const sendUser = await axios.post(BASE_URL + "/interns", {
@@ -52,10 +58,8 @@ const Home = () => {
       setLoading(false);
     }
   };
-  //todo
-  // validate email and make sure it is from trusted shource
-
   const { Title } = Typography;
+
   useEffect(() => {
     error &&
       openNotification(
@@ -64,9 +68,9 @@ const Home = () => {
         "Something went Wrong make sure your email is not registered before and you have a proper internet connection."
       );
   }, [error]);
+
   return (
     <div className={styles.homePageContainer}>
-      {/* <TimeCountDown /> */}
       <div className={styles.homeTitle}>
         <Title>iCog Labs</Title>
         <Image
@@ -77,7 +81,7 @@ const Home = () => {
         />
       </div>
 
-      <Title>Internship Assesment</Title>
+      <Title style={{ textAlign: "center" }}>Internship Assesment</Title>
       <div className={styles.descriptionContainer}>
         <Divider orientation="left">Berfore We begin</Divider>
         <List
@@ -86,40 +90,43 @@ const Home = () => {
           renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       </div>
-      <p> </p>
-      <Title level={6}></Title>
 
-      <Title level={5}> Please type in your name and email</Title>
-
-      <div className={styles.inputContainer}>
-        <Divider orientation="left">Name</Divider>
-        <Input
-          placeholder="Name"
-          prefix={<UserOutlined />}
-          onChange={(e) => handleChange(e)}
-          name="Name"
-          size="large"
-        />
-        <Divider orientation="left">Email</Divider>
-        <Input
-          placeholder="Email"
-          prefix={<UserOutlined />}
-          onChange={(e) => handleChange(e)}
-          name="Email"
-          size="large"
-        />
-        <Divider orientation="left"></Divider>
-
-        <Button
-          type="primary"
-          loading={loading}
-          size={"large"}
-          onClick={handleSubmit}
+      <Button
+        onClick={() => setVisible(true)}
+        type={"primary"}
+        size={"large"}
+        style={{ marginTop: "20px" }}
+      >
+        Next
+      </Button>
+      {visible && (
+        <Modal
+          title="Type in Your name and email"
+          centered
+          visible={visible}
+          onCancel={() => setVisible(false)}
+          footer={[
+            <Button key="back" onClick={() => setVisible(false)}>
+              Return
+            </Button>,
+            <Button
+              key="submit"
+              type="primary"
+              loading={loading}
+              onClick={handleSubmit}
+            >
+              Next
+            </Button>,
+          ]}
+          width={1000}
         >
-          Start
-        </Button>
-      </div>
-      {/* <CodeEditor /> */}
+          <InputForm
+            handleSubmit={handleSubmit}
+            loading={loading}
+            handleChange={handleChange}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

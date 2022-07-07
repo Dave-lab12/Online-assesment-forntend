@@ -9,7 +9,7 @@ const MultipleChoice = ({
   answerList,
   questionId,
 }) => {
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState("null");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const openNotification = (placement, type, content) => {
@@ -53,6 +53,8 @@ const MultipleChoice = ({
       <Radio.Group
         name="choice"
         style={{ display: "flex", flexDirection: "column" }}
+        size={"large"}
+        defaultValue={answer}
       >
         {Object.keys(answerList[0]).map((el) => {
           if (el != "id")

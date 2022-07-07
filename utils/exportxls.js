@@ -54,7 +54,7 @@ export const exportXls = async (internData) => {
         })
         internObj[index] = internArr
     })
-    data = [hader_row, ...internObj];
+    const data = [hader_row, ...internObj];
     await writeXlsxFile(data, {
         fileName: "internResults.xlsx",
     });

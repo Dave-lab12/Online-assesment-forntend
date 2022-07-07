@@ -19,7 +19,7 @@ const TimeCountDown = (props) => {
     if (seconds === 0) {
       if (minutes === 0) {
         clearInterval(timeInterval);
-        // moveToNextQuestion();
+        moveToNextQuestion();
         // console.log("time is up");
       } else {
         setMinutes(minutes - 1);
