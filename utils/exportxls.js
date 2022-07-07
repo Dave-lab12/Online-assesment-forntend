@@ -1,9 +1,8 @@
 import writeXlsxFile from "write-excel-file";
 
 export const exportXls = async (internData) => {
-    const intern = []
-
-    const HEADER_ROW = [
+    let internObj = []
+    let hader_row = [
         {
             value: "Name",
             fontWeight: "bold",
@@ -12,48 +11,51 @@ export const exportXls = async (internData) => {
             value: "email",
             fontWeight: "bold",
         },
-        {
-            value: "question",
-            fontWeight: "bold",
-        },
-        {
-            value: "answer",
-            fontWeight: "bold",
-        },
-    ];
+    ]
+    // const HEADER_ROW = [
+    //     {
+    //         value: "Name",
+    //         fontWeight: "bold",
+    //     },
+    //     {
+    //         value: "email",
+    //         fontWeight: "bold",
+    //     },
+    //     {
+    //         value: "question",
+    //         fontWeight: "bold",
+    //     },
+    //     {
+    //         value: "answer",
+    //         fontWeight: "bold",
+    //     },
+    // ];
 
-    const DATA_ROW_1 = [
-        // "Name"
-        {
-            type: String,
-            value: "John Smith",
-        },
-
-        // "Date of Birth"
-        {
-            type: Date,
-            value: new Date(),
-            format: "mm/dd/yyyy",
-        },
-    ];
-
-    internData.data.data.map(interns => {
-        const { email, name, answers } = interns
-        intern.push({ type: String, value: name })
-        intern.push({ type: String, value: email })
-        interns.attributes.answers.data.map(internAns => {
-            intern.push({ type: String, value: internAns.Answer })
-            const question = internAns.attributes.question.data.attributes.title
-            intern.push({ type: String, value: question })
-
+    internData.data.data.map((interns, index) => {
+        let internArr = []
+        let header = []
+        const { Email, Name, answers } = interns.attributes
+        internArr.push({ type: String, value: Name })
+        internArr.push({ type: String, value: Email })
+        answers.data.map((internAns, index) => {
+            header = [
+                {
+                    value: "question",
+                    fontWeight: "bold",
+                },
+                {
+                    value: "answer",
+                    fontWeight: "bold",
+                },]
+            hader_row = [...hader_row, ...header]
+            const question = internAns.attributes.question.data.attributes.Title
+            internArr.push({ type: String, value: question })
+            internArr.push({ type: String, value: internAns.attributes.Answer })
         })
-
+        internObj[index] = internArr
     })
-    const data = [HEADER_ROW, intern];
-    console.log(data);
+    data = [hader_row, ...internObj];
     await writeXlsxFile(data, {
-        //
-        // columns, // (optional) column widths, etc.
-        fileName: "file.xlsx",
+        fileName: "internResults.xlsx",
     });
 }
