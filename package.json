@@ -19,6 +19,7 @@
     "react": "17.0.2",
     "react-confetti": "^6.1.0",
     "react-dom": "17.0.2",
+    "react-highlight-words": "^0.18.0",
     "write-excel-file": "^1.4.8"
   },
   "devDependencies": {
