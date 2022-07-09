@@ -59,14 +59,3 @@ const TimeCountDown = (props) => {
 };
 
 export default TimeCountDown;
-// element {
-// 	display: flex;
-// 	align-content: end;
-// 	justify-content: center;
-// }
-
-// element {
-// 	display: flex;
-// 	align-content: end;
-// 	justify-content: center;
-// }
