@@ -32,20 +32,21 @@ const Home = () => {
       placement,
     });
   };
-  const handleSubmit = async () => {
-    if (!userData.Name || !userData.Email) {
+  const handleSubmit = async (data) => {
+    console.log(data);
+    if (!data.Name || !data.Email) {
       return openNotification("top", "error", "please fill all forms ");
     }
-    if (!EmailValidator.validate(userData.Email)) {
-      openNotification("top", "error", "invalid email");
+    if (!EmailValidator.validate(data.Email)) {
+      return openNotification("top", "error", "invalid email");
     }
 
     setLoading(true);
     try {
       const sendUser = await axios.post(BASE_URL + "/interns", {
-        data: userData,
+        data: data,
       });
-      setUserData({ ...userData, id: sendUser.data.data.id });
+      setUserData({ ...data, id: sendUser.data.data.id });
       const { data } = await axios.get(
         `${BASE_URL}/questions?populate[QuestionType][populate]=isMultiple`
       );
@@ -102,23 +103,11 @@ const Home = () => {
       {visible && (
         <Modal
           title="Type in Your name and email"
-          centered
+          style={{ top: 20 }}
           visible={visible}
           onCancel={() => setVisible(false)}
-          footer={[
-            <Button key="back" onClick={() => setVisible(false)}>
-              Return
-            </Button>,
-            <Button
-              key="submit"
-              type="primary"
-              loading={loading}
-              onClick={handleSubmit}
-            >
-              Next
-            </Button>,
-          ]}
-          width={1000}
+          footer={[]}
+          // width={1000}
         >
           <InputForm
             handleSubmit={handleSubmit}

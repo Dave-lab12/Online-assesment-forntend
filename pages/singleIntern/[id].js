@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { BASE_URL } from '../../Api'
 import { useState, useEffect } from 'react'
+import { Table } from 'antd'
 const SingleIntern = () => {
     const [singleIntern, setSingleIntern] = useState({})
     const router = useRouter()
@@ -12,7 +13,6 @@ const SingleIntern = () => {
         }
     }, [id])
     const getSingleIntern = async () => {
-
         const res = await axios.get(`${BASE_URL}/interns/${id}?populate[answers][populate]=question
         `)
         setSingleIntern(res.data)
