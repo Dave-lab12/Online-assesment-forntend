@@ -15,7 +15,7 @@ const InputForm = ({ handleChange, handleSubmit, loading }) => {
 
   const layout = {
     labelCol: {
-      span: 3,
+      span: 6,
     },
     wrapperCol: {
       span: 16,
@@ -77,33 +77,6 @@ const InputForm = ({ handleChange, handleSubmit, loading }) => {
           </Button>
         </Form.Item>
       </Form>
-      {/* <Title level={5}> Please type in your name and email</Title> */}
-      {/* <Divider orientation="left">Name</Divider>
-      <Input
-        placeholder="Name"
-        prefix={<UserOutlined />}
-        onChange={(e) => handleChange(e)}
-        name="Name"
-        size="large"
-      />
-      <Divider orientation="left">Email</Divider>
-      <Input
-        placeholder="Email"
-        prefix={<UserOutlined />}
-        onChange={(e) => handleChange(e)}
-        name="Email"
-        size="large"
-      />
-      <Divider orientation="left"></Divider> */}
-      {/* 
-      <Button
-        type="primary"
-        loading={loading}
-        size={"large"}
-        onClick={handleSubmit}
-      >
-        Start
-      </Button> */}
     </div>
   );
 };
