@@ -3,8 +3,7 @@ import { setCookie } from 'nookies'
 
 export default async (req, res) => {
     const { email, password } = req.body
-    console.log(password, email);
-    console.log(req.body);
+
     try {
         const postRes = await axios.post('http://localhost:1337/api/auth/local', {
             identifier: email, password
