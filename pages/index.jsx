@@ -43,14 +43,15 @@ const Home = () => {
     console.log(userInputData);
 
     try {
-      console.log(userInputData);
       const sendUser = await axios.post(BASE_URL + "/interns", {
         data: userInputData,
       });
       setUserData({ ...userInputData, id: sendUser.data.data.id });
+
       const { data } = await axios.get(
         `${BASE_URL}/questions?populate[QuestionType][populate]=isMultiple`
       );
+      console.log(data);
       setQuestions(data.data);
       setLoading(false);
       await Router.push("/question");
