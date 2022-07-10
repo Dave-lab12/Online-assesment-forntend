@@ -13,7 +13,7 @@ export default async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development',
             maxAge: 30 * 24 * 60 * 60,
-            path: '/profile',
+            path: '/',
         });
 
         res.status(200).end();

@@ -12,6 +12,7 @@ const MultipleChoice = ({
   const [answer, setAnswer] = useState("null");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const openNotification = (placement, type, content) => {
     notification[type]({
       message: `warning`,
@@ -29,6 +30,7 @@ const MultipleChoice = ({
       if (sendAnswer.status === 200) {
         setQuestionsCounter((questionsCounter) => questionsCounter + 1);
         setLoading(false);
+        setAnswer("null");
       }
     } catch (error) {
       console.log(error);
@@ -48,22 +50,21 @@ const MultipleChoice = ({
   const handleChange = (e) => {
     setAnswer(e.target.value);
   };
+  console.log(answer);
   return (
     <div className={styles.choiceContainer}>
       <Radio.Group
         name="choice"
         style={{ display: "flex", flexDirection: "column" }}
         size={"large"}
-        defaultValue={answer}
+        value={answer ? answer : "null"}
+        // defaultValue={answer}
+        onChange={(e) => handleChange(e)}
       >
         {Object.keys(answerList[0]).map((el) => {
-          if (el != "id")
+          if (el != "id" && answerList[0][el])
             return (
-              <Radio
-                value={el}
-                onChange={(e) => handleChange(e)}
-                style={{ margin: "20px 0" }}
-              >
+              <Radio value={el} style={{ margin: "20px 0" }}>
                 {answerList[0][el]}
               </Radio>
             );
