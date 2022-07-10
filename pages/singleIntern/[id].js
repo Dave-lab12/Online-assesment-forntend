@@ -2,11 +2,11 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { BASE_URL } from '../../Api'
 import { useState, useEffect } from 'react'
-import { Table } from 'antd'
+import { Table, Statistic, Card, Spin, PageHeader } from 'antd'
 const SingleIntern = () => {
     const [singleIntern, setSingleIntern] = useState({})
     const [correctAns, setCorrectAns] = useState(null)
-    const answerLength = singleIntern?.data?.attributes?.answers?.data?.length
+    const [loading, setLoading] = useState(true)
     const router = useRouter()
     const { id } = router.query
     const columns = [
@@ -45,7 +45,6 @@ const SingleIntern = () => {
         const question = item.attributes.question.data.attributes.Title
         const answer = item.attributes.Answer
         const correctAnswer = filterCorrectAns(questionId)
-        console.log(filterCorrectAns(questionId));
         const correct = answer === correctAnswer ? 'true' : 'false'
         data.push({
             key: index,
@@ -74,12 +73,31 @@ const SingleIntern = () => {
         const res = await axios.get(`${BASE_URL}/interns/${id}?populate[answers][populate]=question
         `)
         setSingleIntern(res.data)
+        setLoading(false)
     }
+    const countCorrectValues = () => {
+        let count = 0
+        data.map((item, index) => {
+            if (item.correct === 'true') {
+                count++
+            }
+        })
 
-    // console.log(singleIntern);
+        return count;
+    }
     return <>
-        <p>SingleIntern: {id}</p>
-        <Table columns={columns} dataSource={data} />
+        <Spin tip="Loading..." spinning={loading}>
+            <PageHeader
+                className="site-page-header"
+                onBack={() => router.back()}
+                title="Home"
+                extra={[
+
+                    <Card style={{ width: 300, float: 'right', margin: '20px' }} hoverable><Statistic title="Correct Answers" value={countCorrectValues()} style={{ textAlign: 'center' }} /></Card>
+                ]}
+            />
+            <Table columns={columns} dataSource={data} />
+        </Spin>
     </>
 }
 
