@@ -32,21 +32,22 @@ const Home = () => {
       placement,
     });
   };
-  const handleSubmit = async (data) => {
-    console.log(data);
-    if (!data.Name || !data.Email) {
+  const handleSubmit = async (userInputData) => {
+    if (!userInputData.Name || !userInputData.Email) {
       return openNotification("top", "error", "please fill all forms ");
     }
-    if (!EmailValidator.validate(data.Email)) {
+    if (!EmailValidator.validate(userInputData.Email)) {
       return openNotification("top", "error", "invalid email");
     }
-
     setLoading(true);
+    console.log(userInputData);
+
     try {
+      console.log(userInputData);
       const sendUser = await axios.post(BASE_URL + "/interns", {
-        data: data,
+        data: userInputData,
       });
-      setUserData({ ...data, id: sendUser.data.data.id });
+      setUserData({ ...userInputData, id: sendUser.data.data.id });
       const { data } = await axios.get(
         `${BASE_URL}/questions?populate[QuestionType][populate]=isMultiple`
       );
