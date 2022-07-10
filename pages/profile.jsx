@@ -4,7 +4,17 @@ import nookies from "nookies";
 import { BASE_URL } from "../Api";
 import { exportXls } from "../utils/exportxls";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import {
+  Button,
+  Input,
+  Space,
+  Table,
+  Descriptions,
+  PageHeader,
+  Statistic,
+  Spin,
+  notification,
+} from "antd";
 import React, { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
 const data = [
@@ -42,6 +52,8 @@ const Profile = (props) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const [internList, setInternList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingExcel, setLoadingExcel] = useState(false);
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -49,7 +61,6 @@ const Profile = (props) => {
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
-  console.log(internList);
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
@@ -196,38 +207,94 @@ const Profile = (props) => {
   useEffect(() => {
     getInterns();
   }, []);
-
+  const openNotification = (placement, type, content) => {
+    notification[type]({
+      message: type,
+      description: content,
+      placement,
+    });
+  };
   const getInterns = async () => {
     const data = await axios.get(`${BASE_URL}/interns`);
     setInternList(data.data);
+    setLoading(false);
   };
   const getInternData = async () => {
-    const internsData = await axios.get(
-      `${BASE_URL}/interns?populate[answers][populate]=question`
-    );
-    await exportXls(internsData);
+    setLoadingExcel(true);
+    try {
+      const internsData = await axios.get(
+        `${BASE_URL}/interns?populate[answers][populate]=question`
+      );
+      await exportXls(internsData);
+      setLoadingExcel(false);
+      openNotification("topRight", "success", "Excel exported successfully");
+    } catch (error) {
+      console.log(error);
+      openNotification("topRight", "error", "Something went wrong");
+      setLoadingExcel(false);
+    }
   };
+  const renderContent = (column = 1, name, email) => (
+    <Descriptions size="small" column={column}>
+      <Descriptions.Item label="Name">{name}</Descriptions.Item>
+      <Descriptions.Item label="Email">{email}</Descriptions.Item>
+    </Descriptions>
+  );
+  const extraContent = (
+    <div
+      style={{
+        display: "flex",
+        width: "max-content",
+        justifyContent: "flex-end",
+      }}
+    >
+      <Statistic
+        title="Applicant List"
+        style={{ textAlign: "center" }}
+        value={internList.data ? internList.data.length : 0}
+      />
+    </div>
+  );
+
+  const Content = ({ children, extra }) => (
+    <div className="content" style={{ display: "flex" }}>
+      <div className="main">{children}</div>
+      <div className="extra">{extra}</div>
+    </div>
+  );
   return (
     <div>
-      <div>Username: {username}</div>
-      <div>Email: {email}</div>
-      <button onClick={getInternData}>Export Excel</button>
-      <button onClick={logout}>Logout</button>
-      {internList && (
-        <Table
-          columns={columns}
-          dataSource={internList.data}
-          onRow={(record, rowIndex) => {
-            return {
-              onDoubleClick: (event) => {
-                console.log(record);
-                router.push(`/singleIntern/${record.id}`);
-              },
-            };
-          }}
-        />
-      )}
-      ;
+      <Spin tip="Loading..." spinning={loading}>
+        <PageHeader
+          className="site-page-header-responsive"
+          title="Home"
+          extra={[
+            <Button key="2" onClick={getInternData} loading={loadingExcel}>
+              Export Excel
+            </Button>,
+            <Button key="1" type="danger" onClick={logout}>
+              Logout
+            </Button>,
+          ]}
+        >
+          <Content extra={extraContent}>
+            {renderContent(1, username, email)}
+          </Content>
+        </PageHeader>
+        {internList && (
+          <Table
+            columns={columns}
+            dataSource={internList.data}
+            onRow={(record, rowIndex) => {
+              return {
+                onDoubleClick: (event) => {
+                  router.push(`/singleIntern/${record.id}`);
+                },
+              };
+            }}
+          />
+        )}
+      </Spin>
     </div>
   );
 };
