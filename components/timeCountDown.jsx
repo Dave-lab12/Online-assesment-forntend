@@ -48,7 +48,7 @@ const TimeCountDown = (props) => {
   return (
     <>
       {minutes === 0 && seconds === 0 ? (
-        ""
+        "Time is Up"
       ) : (
         <h1 className={styles.counter}>
           {minutes}:{seconds < 10 ? `0${seconds}` : seconds}

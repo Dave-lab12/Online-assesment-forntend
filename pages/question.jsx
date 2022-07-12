@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { BASE_URL } from "../Api";
 import { UserDataContext } from "../context/userContext";
 import Router from "next/router";
 import ShortAnswer from "../components/ShortAnswer";
@@ -7,12 +9,54 @@ import TrueFalse from "../components/TrueFalse";
 import TimeCountDown from "../components/timeCountDown";
 import styles from "../styles/questions.module.css";
 import Completed from "./complited";
-import { Button, Result } from "antd";
+import { Button, Result, notification } from "antd";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
   const singleQuestion = questions[questionsCounter]?.attributes;
   const singleQuestionId = questions[questionsCounter]?.id;
+  const [answer, setAnswer] = useState("null");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const openNotification = (placement, type, content) => {
+    notification[type]({
+      message: `warning`,
+      description: content,
+      placement,
+    });
+  };
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
+        data: {
+          Answer: answer,
+          question: singleQuestionId,
+          intern: userData.id,
+        },
+      });
+
+      if (sendAnswer.status === 200) {
+        setQuestionsCounter((questionsCounter) => questionsCounter + 1);
+        setLoading(false);
+        setAnswer("null");
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (error) {
+      openNotification(
+        "top",
+        "error",
+        "Something Went Wrong Please contact support"
+      );
+    }
+  }, [error]);
 
   if (questions.length <= questionsCounter) {
     return <Completed />;
@@ -27,11 +71,17 @@ const question = () => {
         />
         <h1>{singleQuestion.Title}</h1>
         <ShortAnswer
-          setQuestionsCounter={setQuestionsCounter}
-          userId={userData.id}
           questionsCounter={questionsCounter}
-          questionId={singleQuestionId}
+          setAnswer={setAnswer}
         />
+        <Button
+          type="primary"
+          loading={loading}
+          size={"large"}
+          onClick={handleSubmit}
+        >
+          Next Question
+        </Button>
       </div>
     );
   }
@@ -46,11 +96,18 @@ const question = () => {
         <h1>{singleQuestion.Title}</h1>
         <MultipleChoice
           answerList={singleQuestion.QuestionType[0].isMultiple}
-          setQuestionsCounter={setQuestionsCounter}
-          userId={userData.id}
           questionsCounter={questionsCounter}
-          questionId={singleQuestionId}
+          setAnswer={setAnswer}
+          answer={answer}
         />
+        <Button
+          type="primary"
+          loading={loading}
+          size={"large"}
+          onClick={handleSubmit}
+        >
+          Next Question
+        </Button>
       </div>
     );
   }
@@ -63,12 +120,15 @@ const question = () => {
           questionsCounter={questionsCounter}
         />
         <h1>{singleQuestion.Title}</h1>
-        <TrueFalse
-          setQuestionsCounter={setQuestionsCounter}
-          userId={userData.id}
-          questionsCounter={questionsCounter}
-          questionId={singleQuestionId}
-        />
+        <TrueFalse questionsCounter={questionsCounter} setAnswer={setAnswer} />
+        <Button
+          type="primary"
+          loading={loading}
+          size={"large"}
+          onClick={handleSubmit}
+        >
+          Next Question
+        </Button>
       </div>
     );
   }
