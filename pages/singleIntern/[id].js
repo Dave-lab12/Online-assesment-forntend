@@ -34,11 +34,13 @@ const SingleIntern = () => {
     ];
     const data = [];
     const filterCorrectAns = (questionID) => {
-        return correctAns && correctAns.map((item, index) => {
+        let answer
+        correctAns && correctAns.map((item, index) => {
             if (item.id === questionID) {
-                return item.attributes.question_answer.data.attributes.answer
+                answer = item?.attributes?.question_answer?.data?.attributes?.answer
             }
         })
+        return answer
     }
     singleIntern.data && singleIntern.data.attributes.answers.data.map((item, index) => {
         const questionId = item.attributes.question.data.id
