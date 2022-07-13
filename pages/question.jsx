@@ -30,9 +30,7 @@ const question = () => {
   };
   const handleSubmit = async () => {
     setLoading(true);
-    console.log(tabSwitch, " time tabs switched");
-    console.log(copyTitle, " copied the title");
-    console.log(pasteAnswer, " paste the answer");
+
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
         data: {
@@ -44,11 +42,11 @@ const question = () => {
 
       if (sendAnswer.status === 200) {
         setQuestionsCounter((questionsCounter) => questionsCounter + 1);
+        setTabSwitch(0);
         setLoading(false);
         setAnswer("null");
         setCopyTitle(false);
         setPasteAnswer(false);
-        setTabSwitch(0);
       }
     } catch (error) {
       console.log(error);
@@ -67,21 +65,17 @@ const question = () => {
     }
   }, [error]);
 
-  // User has switched away from the tab (AKA tab is hidden)
   const onBlur = () => {
-    setTabSwitch(tabSwitch++);
+    setTabSwitch(tabSwitch + 1);
   };
   useEffect(() => {
     window.addEventListener("blur", onBlur);
-    // Calls onFocus when the window first loads
-    onFocus();
 
     // Specify how to clean up after this effect:
     return () => {
-      window.removeEventListener("focus", onFocus);
       window.removeEventListener("blur", onBlur);
     };
-  }, []);
+  }, [singleQuestion, tabSwitch]);
   const handleTitleCopy = () => {
     setCopyTitle(true);
   };
