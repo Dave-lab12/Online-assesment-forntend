@@ -30,13 +30,15 @@ const question = () => {
   };
   const handleSubmit = async () => {
     setLoading(true);
-
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
         data: {
           Answer: answer,
           question: singleQuestionId,
           intern: userData.id,
+          countSwitchedTabs: tabSwitch,
+          copiedTitle: copyTitle,
+          pastedAnswer: pasteAnswer,
         },
       });
 
