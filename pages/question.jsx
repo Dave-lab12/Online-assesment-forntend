@@ -18,7 +18,9 @@ const question = () => {
   const [answer, setAnswer] = useState("null");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
+  const [tabSwitch, setTabSwitch] = useState(0);
+  const [copyTitle, setCopyTitle] = useState(false);
+  const [pasteAnswer, setPasteAnswer] = useState(false);
   const openNotification = (placement, type, content) => {
     notification[type]({
       message: `warning`,
@@ -28,6 +30,9 @@ const question = () => {
   };
   const handleSubmit = async () => {
     setLoading(true);
+    console.log(tabSwitch, " time tabs switched");
+    console.log(copyTitle, " copied the title");
+    console.log(pasteAnswer, " paste the answer");
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
         data: {
@@ -41,6 +46,9 @@ const question = () => {
         setQuestionsCounter((questionsCounter) => questionsCounter + 1);
         setLoading(false);
         setAnswer("null");
+        setCopyTitle(false);
+        setPasteAnswer(false);
+        setTabSwitch(0);
       }
     } catch (error) {
       console.log(error);
@@ -48,6 +56,7 @@ const question = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     if (error) {
       openNotification(
@@ -58,6 +67,24 @@ const question = () => {
     }
   }, [error]);
 
+  // User has switched away from the tab (AKA tab is hidden)
+  const onBlur = () => {
+    setTabSwitch(tabSwitch++);
+  };
+  useEffect(() => {
+    window.addEventListener("blur", onBlur);
+    // Calls onFocus when the window first loads
+    onFocus();
+
+    // Specify how to clean up after this effect:
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("blur", onBlur);
+    };
+  }, []);
+  const handleTitleCopy = () => {
+    setCopyTitle(true);
+  };
   if (questions.length <= questionsCounter) {
     return <Completed />;
   }
@@ -69,10 +96,11 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
         />
-        <h1>{singleQuestion.Title}</h1>
+        <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <ShortAnswer
           questionsCounter={questionsCounter}
           setAnswer={setAnswer}
+          setPasteAnswer={setPasteAnswer}
         />
         <Button
           type="primary"
@@ -93,7 +121,7 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
         />
-        <h1>{singleQuestion.Title}</h1>
+        <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <MultipleChoice
           answerList={singleQuestion.QuestionType[0].isMultiple}
           questionsCounter={questionsCounter}
@@ -119,7 +147,7 @@ const question = () => {
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
         />
-        <h1>{singleQuestion.Title}</h1>
+        <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <TrueFalse questionsCounter={questionsCounter} setAnswer={setAnswer} />
         <Button
           type="primary"

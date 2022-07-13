@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../Api";
 import { Input } from "antd";
 import styles from "../styles/questions.module.css";
-const ShortAnswer = ({ userId, setAnswer }) => {
+const ShortAnswer = ({ userId, setAnswer, setPasteAnswer }) => {
   const { TextArea } = Input;
 
   const handleChange = (e) => {
@@ -12,6 +12,7 @@ const ShortAnswer = ({ userId, setAnswer }) => {
   return (
     <div className={styles.shortAnsContainer}>
       <TextArea
+        onPaste={setPasteAnswer(true)}
         placeholder="Write your answer here"
         autoSize={{ minRows: 5, maxRows: 15 }}
         onChange={(e) => handleChange(e)}
