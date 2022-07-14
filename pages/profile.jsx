@@ -156,7 +156,24 @@ const Profile = (props) => {
         text
       ),
   });
+  const getTotalCountOfPlagarism = (data = []) => {
+    let titleCopied = 0;
+    let tabsSwitched = 0;
+    let answersPasted = 0;
 
+    data.forEach((item) => {
+      if (item.attributes.copiedTitle) {
+        titleCopied++;
+      }
+      if (item.attributes.countSwitchedTabs) {
+        tabsSwitched++;
+      }
+      if (item.attributes.pastedAnswers) {
+        answersPasted++;
+      }
+    });
+    return { titleCopied, tabsSwitched, answersPasted };
+  };
   const columns = [
     {
       title: "ID",
@@ -183,12 +200,21 @@ const Profile = (props) => {
       render: (item) => item.Email,
     },
     {
-      title: "type",
-      dataIndex: "address",
+      title: "Plagarism detection",
+      dataIndex: ["attributes"],
       key: "address",
-      ...getColumnSearchProps("address"),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ["descend", "ascend"],
+      ...getColumnSearchProps(["attributes"]),
+      render: (item) => {
+        const { titleCopied, tabsSwitched, answersPasted } =
+          getTotalCountOfPlagarism(item.answers.data);
+        if (titleCopied < 2 && tabsSwitched < 2 && answersPasted < 1) {
+          return <span style={{ color: "green" }}>Low</span>;
+        } else if (titleCopied < 5 && tabsSwitched < 5 && answersPasted < 3) {
+          return <span style={{ color: "darkkhaki" }}>Medium</span>;
+        } else {
+          return <span style={{ color: "red" }}>High</span>;
+        }
+      },
     },
   ];
 
@@ -215,7 +241,7 @@ const Profile = (props) => {
     });
   };
   const getInterns = async () => {
-    const data = await axios.get(`${BASE_URL}/interns`);
+    const data = await axios.get(`${BASE_URL}/interns?populate=answers`);
     setInternList(data.data);
     setLoading(false);
   };
