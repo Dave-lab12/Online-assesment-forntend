@@ -94,8 +94,9 @@ const SingleIntern = () => {
                 onBack={() => router.back()}
                 title="Home"
                 extra={[
-
-                    <Card style={{ width: 300, float: 'right', margin: '20px' }} hoverable><Statistic title="Correct Answers" value={countCorrectValues()} style={{ textAlign: 'center' }} /></Card>
+                    <Card style={{ width: 300, float: 'right', margin: '20px' }} hoverable>
+                        <Statistic title="Unmerged" value={countCorrectValues()} suffix={`/ ${data.length}`} />
+                    </Card>
                 ]}
             />
             <Table columns={columns} dataSource={data} />
@@ -109,4 +110,5 @@ export default SingleIntern
 
 //url to get Question-answers with question
 //http://localhost:1337/api/questions?populate=question_answer
+
 //http://localhost:1337/api/question-answers?populate=*
