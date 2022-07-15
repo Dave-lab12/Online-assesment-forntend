@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import axios from "axios";
-import nookies from "nookies";
+import nookies, { destroyCookie } from "nookies";
 import { BASE_URL } from "../Api";
 import { exportXls } from "../utils/exportxls";
 import { SearchOutlined } from "@ant-design/icons";
@@ -55,6 +55,7 @@ const Profile = (props) => {
   const [loading, setLoading] = useState(true);
   const [loadingExcel, setLoadingExcel] = useState(false);
   const searchInput = useRef(null);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     console.log(selectedKeys, confirm, dataIndex);
@@ -224,8 +225,8 @@ const Profile = (props) => {
 
   const logout = async () => {
     try {
-      await axios.get("/api/logout");
-      router.push("/");
+      const dat = await axios.get("/api/logout");
+      await router.push("/");
     } catch (e) {
       console.log(e);
     }
@@ -331,7 +332,7 @@ export const getServerSideProps = async (ctx) => {
 
   if (cookies?.jwt) {
     try {
-      const { data } = await axios.get("http://localhost:1337/api/users/me", {
+      const { data } = await axios.get(BASE_URL + "/users/me", {
         headers: {
           Authorization: `Bearer ${cookies.jwt}`,
         },

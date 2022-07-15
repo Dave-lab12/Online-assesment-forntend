@@ -12,7 +12,9 @@ export default async (req, res) => {
         setCookie({ res }, 'jwt', postRes.data.jwt, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development',
+            // secure: false,
             maxAge: 30 * 24 * 60 * 60,
+            // sameSite: "none",
             path: '/',
         });
 
