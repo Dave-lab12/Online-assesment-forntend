@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import nookies from "nookies";
+
 import { BASE_URL } from '../../Api'
 import { useState, useEffect } from 'react'
 import { Table, Statistic, Card, Spin, PageHeader } from 'antd'
@@ -103,7 +105,38 @@ const SingleIntern = () => {
         </Spin>
     </>
 }
+export const getServerSideProps = async (ctx) => {
+    const cookies = nookies.get(ctx);
+    let user = null;
 
+    if (cookies?.jwt) {
+        try {
+            const { data } = await axios.get(BASE_URL + "/users/me", {
+                headers: {
+                    Authorization: `Bearer ${cookies.jwt}`,
+                },
+            });
+            user = data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    if (!user) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/",
+            },
+        };
+    }
+
+    return {
+        props: {
+            user,
+        },
+    };
+};
 export default SingleIntern
 //url to get interns id answer and quesrion
 //http://localhost:1337/api/interns/156?populate[answers][populate]=question
