@@ -8,7 +8,7 @@ import MultipleChoice from "../components/MultipleChoice";
 import TrueFalse from "../components/TrueFalse";
 import TimeCountDown from "../components/timeCountDown";
 import styles from "../styles/questions.module.css";
-import Completed from "./complited";
+import Completed from "../components/complited";
 import { Button, Result, notification } from "antd";
 const question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
