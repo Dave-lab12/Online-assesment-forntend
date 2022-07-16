@@ -30,6 +30,18 @@ const SingleIntern = () => {
             dataIndex: 'correctAnswer',
         },
         {
+            title: 'Copied title',
+            dataIndex: 'copiedTitle',
+        },
+        {
+            title: 'Pasted answer',
+            dataIndex: 'pastedAnswer',
+        },
+        {
+            title: 'Count Swithed tabs',
+            dataIndex: 'countSwitchedTabs',
+        },
+        {
             title: 'correct',
             dataIndex: 'correct',
         },
@@ -48,6 +60,9 @@ const SingleIntern = () => {
         const questionId = item.attributes.question.data.id
         const question = item.attributes.question.data.attributes.Title
         const answer = item.attributes.Answer
+        const copiedTitle = item.attributes.copiedTitle
+        const pastedAnswer = item.attributes.pastedAnswer
+        const countSwitchedTabs = item.attributes.countSwitchedTabs
         const correctAnswer = filterCorrectAns(questionId)
         const correct = answer === correctAnswer ? 'true' : 'false'
         data.push({
@@ -57,6 +72,9 @@ const SingleIntern = () => {
             answer,
             correctAnswer,
             correct,
+            copiedTitle: copiedTitle.toString(),
+            pastedAnswer: pastedAnswer.toString(),
+            countSwitchedTabs
         })
     })
 
