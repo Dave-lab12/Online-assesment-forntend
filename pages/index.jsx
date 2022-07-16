@@ -7,6 +7,8 @@ import Router from "next/router";
 import styles from "../styles/Home.module.css";
 import { BASE_URL } from "../Api";
 import { Divider, List, Typography, Button, notification, Modal } from "antd";
+import platform from "platform";
+// var platform = require("platform");
 const data = [
   "Make sure you have stable internet connection.",
   "you can not retake the examination again.",
@@ -40,18 +42,23 @@ const Home = () => {
       return openNotification("top", "error", "invalid email");
     }
     setLoading(true);
-    console.log(userInputData);
 
     try {
       const sendUser = await axios.post(BASE_URL + "/interns", {
-        data: userInputData,
+        data: {
+          ...userInputData,
+          osType: `${platform.os.family} ${platform.os.version} ${platform.os.architecture}bit`,
+          browser: `${platform.name} ${platform.version}`,
+        },
       });
-      setUserData({ ...userInputData, id: sendUser.data.data.id });
+      setUserData({
+        ...userInputData,
+        id: sendUser.data.data.id,
+      });
 
       const { data } = await axios.get(
         `${BASE_URL}/questions?populate[QuestionType][populate]=isMultiple`
       );
-      console.log(data);
       setQuestions(data.data);
       setLoading(false);
       await Router.push("/question");
