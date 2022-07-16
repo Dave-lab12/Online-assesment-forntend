@@ -1,6 +1,7 @@
 .questionsContainer{
     max-width: 800px;
     margin: auto;
+    padding: 20px;
 }
 .questionsContainer h1{
     text-align: center;

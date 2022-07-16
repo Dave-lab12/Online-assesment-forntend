@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import axios from "axios";
-import nookies, { destroyCookie } from "nookies";
+import nookies from "nookies";
 import { BASE_URL } from "../Api";
 import { exportXls } from "../utils/exportxls";
 import { SearchOutlined } from "@ant-design/icons";
@@ -14,9 +14,12 @@ import {
   Statistic,
   Spin,
   notification,
+  Tabs,
 } from "antd";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
+import InternGraph from "../components/internGraph";
+import Analytics from "../components/Analytics";
 
 const Profile = (props) => {
   const router = useRouter();
@@ -25,8 +28,9 @@ const Profile = (props) => {
   const [internList, setInternList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingExcel, setLoadingExcel] = useState(false);
+  const [internAnalytics, setInternAnalytics] = useState([]);
   const searchInput = useRef(null);
-
+  const { TabPane } = Tabs;
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     // console.log(selectedKeys, confirm, dataIndex);
@@ -37,6 +41,23 @@ const Profile = (props) => {
     clearFilters();
     setSearchText("");
   };
+  const getInternAnalytics = async () => {
+    try {
+      const getInternAnalytics = await axios.get(
+        `${BASE_URL}/interns?fields=osType&fields=browser`
+      );
+      if (getInternAnalytics.status === 200) {
+        setInternAnalytics(getInternAnalytics.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getInternAnalytics();
+  }, []);
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -262,6 +283,7 @@ const Profile = (props) => {
       <div className="extra">{extra}</div>
     </div>
   );
+
   return (
     <div>
       <Spin tip="Loading..." spinning={loading}>
@@ -281,19 +303,26 @@ const Profile = (props) => {
             {renderContent(1, username, email)}
           </Content>
         </PageHeader>
-        {internList && (
-          <Table
-            columns={columns}
-            dataSource={internList.data}
-            onRow={(record, rowIndex) => {
-              return {
-                onDoubleClick: (event) => {
-                  router.push(`/singleIntern/${record.id}`);
-                },
-              };
-            }}
-          />
-        )}
+        <Tabs defaultActiveKey="1" style={{ margin: "0 2rem" }}>
+          <TabPane tab="Analytics" key="1">
+            <Analytics internAnalytics={internAnalytics} />
+          </TabPane>
+          <TabPane tab="Data" key="2">
+            {internList && (
+              <Table
+                columns={columns}
+                dataSource={internList.data}
+                onRow={(record, rowIndex) => {
+                  return {
+                    onDoubleClick: (event) => {
+                      router.push(`/singleIntern/${record.id}`);
+                    },
+                  };
+                }}
+              />
+            )}
+          </TabPane>
+        </Tabs>
       </Spin>
     </div>
   );
