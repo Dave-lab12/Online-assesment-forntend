@@ -17,36 +17,7 @@ import {
 } from "antd";
 import React, { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
-const data = [
-  {
-    id: 1,
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    id: 2,
-    key: "2",
-    name: "Joe Black",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    id: 3,
-    key: "3",
-    name: "Jim Green",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    id: 4,
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-];
+
 const Profile = (props) => {
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
@@ -246,13 +217,15 @@ const Profile = (props) => {
     setInternList(data.data);
     setLoading(false);
   };
+
   const getInternData = async () => {
     setLoadingExcel(true);
     try {
+      const getQuestions = await axios.get(`${BASE_URL}/questions`);
       const internsData = await axios.get(
         `${BASE_URL}/interns?populate[answers][populate]=question`
       );
-      await exportXls(internsData);
+      await exportXls(internsData, getQuestions);
       setLoadingExcel(false);
       openNotification("topRight", "success", "Excel exported successfully");
     } catch (error) {
