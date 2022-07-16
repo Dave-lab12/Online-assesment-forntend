@@ -5,9 +5,6 @@ import styles from "../styles/Home.module.css";
 const InputForm = ({ handleChange, handleSubmit, loading }) => {
   const { Title } = Typography;
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log(values);
-  };
 
   const onReset = () => {
     form.resetFields();

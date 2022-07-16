@@ -58,7 +58,7 @@ const Profile = (props) => {
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
-    console.log(selectedKeys, confirm, dataIndex);
+    // console.log(selectedKeys, confirm, dataIndex);
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
