@@ -1,0 +1,269 @@
+{
+  "data": [
+    {
+      "id": 5,
+      "attributes": {
+        "Title": "Inside which HTML element do we put the JavaScript?",
+        "createdAt": "2022-07-10T13:12:29.509Z",
+        "updatedAt": "2022-07-10T14:12:56.071Z",
+        "publishedAt": "2022-07-10T14:12:56.070Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 7,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 11,
+                "A": "<Javascript>",
+                "B": "<script>",
+                "C": "<js>",
+                "D": "<scripting>"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "attributes": {
+        "Title": "What is the correct JavaScript syntax to change the content of the HTML?  <p id=\"demo\">This is a demonstration.</p>",
+        "createdAt": "2022-07-10T13:12:46.151Z",
+        "updatedAt": "2022-07-10T14:13:11.613Z",
+        "publishedAt": "2022-07-10T14:13:11.611Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 8,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 12,
+                "A": " document.getElementByName(\"p\").innerHTML = \"Hello World!\";",
+                "B": " document.getElement(\"p\").innerHTML = \"Hello World!\";",
+                "C": " #demo.innerHTML = \"Hello World!\";",
+                "D": " document.getElementById(\"demo\").innerHTML = \"Hello World!\";"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "attributes": {
+        "Title": "Where is the correct place to insert a JavaScript?",
+        "createdAt": "2022-07-10T13:14:52.114Z",
+        "updatedAt": "2022-07-10T14:13:32.367Z",
+        "publishedAt": "2022-07-10T14:13:28.806Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 9,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 13,
+                "A": "Where is the correct place to insert a JavaScript?",
+                "B": " Both the <head> section and the <body> section are correct",
+                "C": " The <body> section",
+                "D": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "attributes": {
+        "Title": "What is the correct syntax for referring to an external script called \"xxx.js\"?",
+        "createdAt": "2022-07-10T13:15:45.400Z",
+        "updatedAt": "2022-07-10T14:13:24.785Z",
+        "publishedAt": "2022-07-10T14:13:24.782Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 10,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 14,
+                "A": " <script name=\"xxx.js\">",
+                "B": " <script src=\"xxx.js\">",
+                "C": " <script href=\"xxx.js\">",
+                "D": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "attributes": {
+        "Title": "The external JavaScript file must contain the <script> tag.",
+        "createdAt": "2022-07-10T13:16:06.235Z",
+        "updatedAt": "2022-07-10T14:12:28.772Z",
+        "publishedAt": "2022-07-10T14:12:24.855Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          { "id": 11, "typeOfQuestion": "isTrueFalse", "isMultiple": [] }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "attributes": {
+        "Title": "How do you write \"Hello World\" in an alert box?",
+        "createdAt": "2022-07-10T13:17:31.618Z",
+        "updatedAt": "2022-07-12T02:38:49.849Z",
+        "publishedAt": "2022-07-10T14:12:15.315Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 12,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 15,
+                "A": " alert(\"Hello World\");",
+                "B": " msgBox(\"Hello World\");",
+                "C": " alertBox(\"Hello World\");",
+                "D": " msg(\"Hello World\");"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "attributes": {
+        "Title": "How do you create a function in JavaScript?",
+        "createdAt": "2022-07-10T13:18:28.730Z",
+        "updatedAt": "2022-07-10T14:12:03.716Z",
+        "publishedAt": "2022-07-10T14:11:59.340Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 13,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 16,
+                "A": " function = myFunction()",
+                "B": " function myFunction()",
+                "C": " function:myFunction()",
+                "D": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "attributes": {
+        "Title": "How do you call a function named \"myFunction\"?",
+        "createdAt": "2022-07-10T13:19:40.414Z",
+        "updatedAt": "2022-07-10T14:11:50.917Z",
+        "publishedAt": "2022-07-10T14:11:50.879Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 14,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 17,
+                "A": " myFunction()",
+                "B": " call myFunction()",
+                "C": " call function myFunction()",
+                "D": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "attributes": {
+        "Title": "How to write an IF statement in JavaScript?",
+        "createdAt": "2022-07-10T13:20:32.166Z",
+        "updatedAt": "2022-07-10T14:12:34.689Z",
+        "publishedAt": "2022-07-10T14:12:34.687Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 15,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 18,
+                "A": " if i = 5",
+                "B": " if (i == 5)",
+                "C": " if i = 5 then",
+                "D": " if i == 5 then"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "attributes": {
+        "Title": "How to write an IF statement for executing some code if \"i\" is NOT equal to 5?",
+        "createdAt": "2022-07-10T13:21:26.936Z",
+        "updatedAt": "2022-07-10T14:12:20.789Z",
+        "publishedAt": "2022-07-10T14:12:20.787Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          {
+            "id": 16,
+            "typeOfQuestion": "isMultipleChoice",
+            "isMultiple": [
+              {
+                "id": 19,
+                "A": " if (i <> 5)",
+                "B": " if i <> 5",
+                "C": " if (i != 5)",
+                "D": " if i =! 5 then"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "attributes": {
+        "Title": "What is ‘this’ keyword in JavaScript?",
+        "createdAt": "2022-07-16T05:27:46.660Z",
+        "updatedAt": "2022-07-16T05:27:48.160Z",
+        "publishedAt": "2022-07-16T05:27:48.158Z",
+        "Description": null,
+        "timeToFinish": "00:04:00.000",
+        "QuestionType": [
+          { "id": 17, "typeOfQuestion": "isShortAnswer", "isMultiple": [] }
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "pagination": { "page": 1, "pageSize": 25, "pageCount": 1, "total": 11 }
+  }
+}

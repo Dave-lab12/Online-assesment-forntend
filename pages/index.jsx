@@ -8,7 +8,6 @@ import styles from "../styles/Home.module.css";
 import { BASE_URL } from "../Api";
 import { Divider, List, Typography, Button, notification, Modal } from "antd";
 import platform from "platform";
-// var platform = require("platform");
 const data = [
   "Make sure you have stable internet connection.",
   "you can not retake the examination again.",
