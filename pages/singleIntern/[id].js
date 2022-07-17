@@ -115,7 +115,7 @@ const SingleIntern = () => {
                 title="Home"
                 extra={[
                     <Card style={{ width: 300, float: 'right', margin: '20px' }} hoverable>
-                        <Statistic title="Unmerged" value={countCorrectValues()} suffix={`/ ${data.length}`} />
+                        <Statistic title="Answered" value={countCorrectValues()} suffix={`/ ${data.length}`} />
                     </Card>
                 ]}
             />
