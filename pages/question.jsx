@@ -21,6 +21,7 @@ const question = () => {
   const [tabSwitch, setTabSwitch] = useState(0);
   const [copyTitle, setCopyTitle] = useState(false);
   const [pasteAnswer, setPasteAnswer] = useState(false);
+  const [time, setTime] = useState("");
   const openNotification = (placement, type, content) => {
     notification[type]({
       message: `warning`,
@@ -30,6 +31,7 @@ const question = () => {
   };
   const handleSubmit = async () => {
     setLoading(true);
+    console.log(time);
     try {
       const sendAnswer = await axios.post(`${BASE_URL}/answers`, {
         data: {
@@ -91,6 +93,7 @@ const question = () => {
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
+          setTime={setTime}
         />
         <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <ShortAnswer
@@ -116,6 +119,7 @@ const question = () => {
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
+          setTime={setTime}
         />
         <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <MultipleChoice
@@ -142,6 +146,7 @@ const question = () => {
           date={singleQuestion.timeToFinish}
           setQuestionsCounter={setQuestionsCounter}
           questionsCounter={questionsCounter}
+          setTime={setTime}
         />
         <h1 onCopy={handleTitleCopy}>{singleQuestion.Title}</h1>
         <TrueFalse questionsCounter={questionsCounter} setAnswer={setAnswer} />
