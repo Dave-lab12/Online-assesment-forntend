@@ -18,7 +18,6 @@ import {
 } from "antd";
 import { useRef, useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
-import InternGraph from "../components/internGraph";
 import Analytics from "../components/Analytics";
 
 const Profile = (props) => {
