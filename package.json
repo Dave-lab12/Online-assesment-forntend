@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "cypress": "cypress open",
+    "lint": "next lint",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
@@ -30,6 +31,8 @@
   },
   "devDependencies": {
     "cypress": "8.2.0",
+    "eslint": "8.20.0",
+    "eslint-config-next": "12.2.2",
     "start-server-and-test": "1.13.1"
   }
 }
