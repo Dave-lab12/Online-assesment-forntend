@@ -1,11 +1,11 @@
 import axios from "axios";
 import { setCookie } from 'nookies'
-
+import { BASE_URL } from "../../Api";
 export default async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const postRes = await axios.post('http://localhost:1337/api/auth/local', {
+        const postRes = await axios.post(`${BASE_URL}/auth/local`, {
             identifier: email, password
         })
 
