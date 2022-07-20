@@ -10,7 +10,7 @@ import TimeCountDown from "../components/timeCountDown";
 import styles from "../styles/questions.module.css";
 import Completed from "../components/complited";
 import { Button, Result, notification } from "antd";
-const question = () => {
+const Question = () => {
   const [questionsCounter, setQuestionsCounter] = useState(0);
   const { userData, questions } = useContext(UserDataContext);
   const singleQuestion = questions[questionsCounter]?.attributes;
@@ -176,7 +176,7 @@ const question = () => {
     );
   }
 };
-export default question;
+export default Question;
 
 //todo: check if user is logged in and if not redirect to login page
 //todo: get questions list from server

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Checkbox, Form, Input, Card, notification } from "antd";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const login = () => {
+const Login = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -109,4 +109,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

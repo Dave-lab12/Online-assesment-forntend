@@ -114,7 +114,7 @@ const SingleIntern = () => {
                 onBack={() => router.back()}
                 title="Home"
                 extra={[
-                    <Card style={{ width: 300, float: 'right', margin: '20px' }} hoverable>
+                    <Card key="1" style={{ width: 300, float: 'right', margin: '20px' }} hoverable>
                         <Statistic title="Answered" value={countCorrectValues()} suffix={`/ ${data.length}`} />
                     </Card>
                 ]}
