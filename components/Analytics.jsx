@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import InternGraph from "./internGraph";
+import InternGraph from "./InternGraph";
 
 const Analytics = ({ internAnalytics }) => {
   const [osType, setOsType] = useState([]);
