@@ -1,23 +1,14 @@
-# Next.js + Cypress
+# Online examination
 
-This example shows how to configure Cypress to work with Next.js.
+This project was made via nextjs the main functionality is admin can add questions and new users can take the assesment there is a dashboard for examiners to see who did well it also have plagarism detection and wide range of analytics tools bonus (you can export all the results via excel)
 
-## Deploy your own
+## Running the website 
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-cypress)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cypress&project-name=with-cypress&repository-name=with-cypress)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+You must have node js installed on your system
 
 ```bash
-npx create-next-app --example with-cypress with-cypress-app
-# or
-yarn create next-app --example with-cypress with-cypress-app
-# or
-pnpm create next-app --example with-cypress with-cypress-app
+# install all dependency  
+yarn
+# Run the project 
+yarn start
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
