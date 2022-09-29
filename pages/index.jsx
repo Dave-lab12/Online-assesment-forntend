@@ -80,17 +80,7 @@ const Home = () => {
 
   return (
     <div className={styles.homePageContainer}>
-      <div className={styles.homeTitle}>
-        <Title>iCog Labs</Title>
-        <Image
-          src="/static/icog-logo.png"
-          alt="logo"
-          width="100"
-          height="100"
-        />
-      </div>
-
-      <Title style={{ textAlign: "center" }}>Internship Assesment</Title>
+      <Title style={{ textAlign: "center" }}>Online Assesment</Title>
       <div className={styles.descriptionContainer}>
         <Divider orientation="left">Berfore We begin</Divider>
         <List
